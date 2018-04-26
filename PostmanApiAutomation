@@ -1,0 +1,238 @@
+{
+	"info": {
+		"name": "End to End DB Operation",
+		"_postman_id": "61287e40-aaa7-a4ad-08d3-ce074e2607f5",
+		"description": "Adding a new data to my db\nVerifying data is added successfully\nUpdating Data to DB\nVerifying data is updated successfully\nDeleting data\nVerifying data deleted",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Adding Record to Database",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "72e27727-1c52-4bda-9f1d-0e0bb8cab0e9",
+						"type": "text/javascript",
+						"exec": [
+							"//postman.setGlobalVariable(\"MyVar\",\"GlobalString\")"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 12111,\r\n    \"title\": \"Testing World\",\r\n    \"author\": \"TW Author\"\r\n  }"
+				},
+				"url": {
+					"raw": "{{url}}/{{resource}}/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{resource}}",
+						""
+					]
+				},
+				"description": null
+			},
+			"response": []
+		},
+		{
+			"name": "Verify Data Added Successfully",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code- Get Request\"] = responseCode.code === 200;",
+							"tests[\"Body matches string\"] = responseBody.has(\"Testing World\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:3000/posts/11",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"posts",
+						"11"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Update record on server",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 11,\r\n    \"title\": \"Testing World Updated\",\r\n    \"author\": \"TW Author\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/posts/11",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"posts",
+						"11"
+					]
+				},
+				"description": null
+			},
+			"response": []
+		},
+		{
+			"name": "Verify Data Updated",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Body matches string\"] = responseBody.has(\"Testing World Updated\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:3000/posts/11",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"posts",
+						"11"
+					]
+				},
+				"description": null
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Record",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:3000/posts/11",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"posts",
+						"11"
+					]
+				},
+				"description": null
+			},
+			"response": []
+		},
+		{
+			"name": "Verify Delete Data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 404;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:3000/posts/11",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"posts",
+						"11"
+					]
+				},
+				"description": null
+			},
+			"response": []
+		},
+		{
+			"name": "AP1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"for(i=1;i<10;i++)",
+							"{",
+							"    console.log(\"Hello\")",
+							"}"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:3000/posts/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"posts",
+						"1"
+					]
+				},
+				"description": null
+			},
+			"response": []
+		}
+	]
+}
